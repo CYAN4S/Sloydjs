@@ -2,6 +2,8 @@
     margin: 0;
     font-family: 'Manrope', sans-serif;
     font-weight: 700;
+    cursor: default  !important;
+    user-select: none;
 }
 
 header {
@@ -70,6 +72,16 @@ main {
     padding: 8px;
 }
 
+#info h2 {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+#info p {
+    font-size: 28px;
+    font-weight: 400;
+}
+
 #con {
     margin-top: 40px;
 }
@@ -78,4 +90,58 @@ main {
     color: gray;
     flex-grow: 1;
     text-align: center;
+}
+
+#modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* display: none; */
+}
+
+#modal-con {
+    margin: 100px auto 0 auto;
+    background-color: rgba(0,0,0,0.6);
+    color: white;
+    max-width: 400px;
+}
+
+#modal-con h1 {
+    padding: 12px;
+}
+
+#size-table {
+    padding: 16px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+}
+
+#size-table h2 {
+    font-weight: 400;
+}
+
+.num {
+    font-weight: 600;
+    font-size: 48px;
+}
+
+.adj {
+    font-weight: 800;
+    font-size: 36px;
+}
+
+#apply {
+    text-align: center;
+    background-color: rgba(0,0,0,0.4);
+    font-size: 20px;
+    padding: 12px;
+}
+
+#apply:hover {
+    background-color: rgba(0,0,0,0.8);
 }

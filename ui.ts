@@ -93,5 +93,4 @@ class BoardUI extends Board {
         break;
     }
   }
-
 }
