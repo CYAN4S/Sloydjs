@@ -63,12 +63,12 @@ main {
     display: flex;
     width: 320px;
     margin: auto;
-    column-gap: 8px;
 }
 
 #info div {
     flex: 1 1;
     background-color: rgb(254, 230, 212);
+    margin: 0 4px;
     padding: 8px;
 }
 
