@@ -7,8 +7,11 @@ const adjs = document.getElementsByClassName("adj");
 const nums = document.getElementsByClassName("num");
 const apply = document.getElementById("apply")!;
 
+const timeinfo = document.getElementById("timeinfo")!;
+
 let mainBoard = new BoardUI(3, 3, stage);
 let row = 3, col = 3;
+
 
 resize.onclick = () => { modal.style.display = "block" };
 window.onclick = (event: MouseEvent) => {
@@ -16,12 +19,23 @@ window.onclick = (event: MouseEvent) => {
         modal.style.display = "none";
     }
 }
-apply.onclick = _ => {
+apply.onclick = () => {
+    info.stop();
     mainBoard = new BoardUI(row, col, stage);
     modal.style.display = "none";
 }
 
-function minmax(n:number): number {
+shuffle.onclick = () => {
+    for (let i = 0; i < 100 * row * col;) {
+        i += mainBoard.controlTile(Math.floor(Math.random() * 4)) ? 1 : 0;
+    }
+    info.run(() => {
+        let t = info.getTime();
+        timeinfo.textContent = `${Math.floor(t / 1000)}`;
+    });
+}
+
+function minmax(n: number): number {
     return (n < 2) ? 2 : (n > 9) ? 9 : n;
 }
 

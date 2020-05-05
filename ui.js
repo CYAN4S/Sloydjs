@@ -83,5 +83,8 @@ class BoardUI extends Board {
                 this.setToPiece(this.hole[0], this.hole[1] + 1);
                 break;
         }
+        if (this.isSolved()) {
+            info.stop();
+        }
     }
 }

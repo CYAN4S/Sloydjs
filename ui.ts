@@ -7,7 +7,7 @@ class BoardUI extends Board {
     this.initUI(stage);
   }
 
-  initUI(stage: HTMLElement): void {
+  private initUI(stage: HTMLElement): void {
     while (stage.firstChild) {
       stage.removeChild(stage.lastChild!);
     }
@@ -91,6 +91,10 @@ class BoardUI extends Board {
       case Move.Right:
         this.setToPiece(this.hole[0], this.hole[1] + 1);
         break;
+    }
+
+    if (this.isSolved()) {
+      info.stop();
     }
   }
 }

@@ -51,10 +51,11 @@ class Board {
 
     for (const i of this.status) {
       for (const j of i) {
+        num++;
         if (j == 0) {
           continue;
         }
-        if (j != ++num) {
+        if (j != num) {
           return false;
         }
       }

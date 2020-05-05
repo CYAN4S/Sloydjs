@@ -69,5 +69,6 @@
     "pq.ts",
     "board.ts",
     "ai.ts",
+    "info.ts",
   ]
 }
