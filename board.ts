@@ -22,6 +22,7 @@ class Board {
 
     for (let i = 0; i < row; i++) {
       let arr: number[] = [];
+
       for (let j = 0; j < col; j++) {
         arr.push(num++);
       }
@@ -37,9 +38,7 @@ class Board {
 
     for (const i of this.status) {
       for (const j of i) {
-        if (j != ++num) {
-          wrong++;
-        }
+        j != ++num ? wrong++ : {};
       }
     }
 
@@ -64,6 +63,76 @@ class Board {
     return true;
   }
 
+  private getDelta(pos: [number, number]) {
+    let isRowSame: boolean, std: number, start: number, end: number;
+
+    if (pos[0] == this.hole[0]) {
+      if (pos[1] == this.hole[1]) {
+        return null;
+      }
+      [isRowSame, std] = [true, pos[0]];
+      [start, end] = [pos[1], this.hole[1]].sort();
+    } else if (pos[1] == this.hole[1]) {
+      [isRowSame, std] = [false, pos[1]];
+      [start, end] = [pos[0], this.hole[0]].sort();
+    } else {
+      return null;
+    }
+
+    std = isRowSame ? pos[0] : pos[1];
+    return { isRowSame, std, start, end };
+  }
+
+
+  protected moveByPos(pos: [number, number]): boolean {
+    if (pos[0] == this.hole[0]) {
+      if (pos[1] == this.hole[1]) {
+        return false;
+      }
+      if (this.hole[1] < pos[1]) {
+        // Tiles go right.
+        for (let i = this.hole[1]; i < pos[1]; i++) {
+          this.status[pos[0]][i] = this.status[pos[0]][i + 1];
+        }
+      } else {
+        // Tiles go left.
+        for (let i = this.hole[1]; i > pos[1]; i--) {
+          this.status[pos[0]][i] = this.status[pos[0]][i - 1];
+        }
+      }
+    }
+    else if (pos[1] == this.hole[1]) {
+      if (this.hole[0] < pos[0]) {
+        // Tiles go up.
+        for (let i = this.hole[0]; i < pos[0]; i++) {
+          this.status[i][pos[1]] = this.status[i + 1][pos[1]];
+        }
+      } else {
+        // Tiles go down.
+        for (let i = this.hole[0]; i > pos[0]; i--) {
+          this.status[i][pos[1]] = this.status[i - 1][pos[1]];
+        }
+      }
+    }
+    else {
+      return false;
+    }
+
+    this.hole = pos;
+    this.status[pos[0]][pos[1]] = 0;
+    return true;
+  }
+
+  getAndMove(pos: [number, number]) {
+    let value = this.getDelta(pos);
+    if (value == null) return null;
+
+    this.moveByPos(pos);
+    
+    return value;
+  }
+
+  // LEGACY
   isMovable(move: Move): boolean {
     switch (move) {
       case Move.Up:
@@ -132,6 +201,7 @@ class Board {
       return false;
     }
   }
+  // LEGACYEND
 
   log(): void {
     console.log(this.status.join(`\n`));

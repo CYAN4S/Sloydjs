@@ -37,7 +37,8 @@ class BoardUI extends Board {
     p.textContent = this.status[i][j].toString();
     div.appendChild(p);
 
-    div.addEventListener("click", () => this.onPieceClick(i, j));
+    // div.addEventListener("click", () => this.onPieceClick(i, j));
+    div.addEventListener("click", () => this.moveByClick([i, j]));
 
     return div;
   }
@@ -71,8 +72,20 @@ class BoardUI extends Board {
     this.elements[row][col].getElementsByTagName("p")[0].textContent = this.status[row][col].toString();
   }
 
+  private setClassToPiece(pos: [number, number]) {
+    this.elements[pos[0]][pos[1]].className = "piece";
+  }
+
   private setToHole(row: number, col: number) {
     this.elements[row][col].className = "hole";
+  }
+
+  private setP(pos: [number, number]) {
+    this.elements[pos[0]][pos[1]].getElementsByTagName("p")[0].textContent = this.status[pos[0]][pos[1]].toString();
+  }
+
+  private setHole() {
+    this.elements[this.hole[0]][this.hole[1]].className = "hole";
   }
 
   protected moveTile(move: Move): void {
@@ -91,6 +104,27 @@ class BoardUI extends Board {
       case Move.Right:
         this.setToPiece(this.hole[0], this.hole[1] + 1);
         break;
+    }
+
+    if (this.isSolved()) {
+      info.stop();
+    }
+  }
+
+  moveByClick(pos: [number, number]) {
+    let prev: [number, number] = [this.hole[0], this.hole[1]];
+
+    let t = this.getAndMove(pos);
+    if (t == null) return;
+
+    let delta = t!;
+
+    let f: (i: number) => [number, number] = delta.isRowSame ? (i: number) => [delta.std, i] : (i: number) => [i, delta.std];
+
+    this.setClassToPiece(prev);
+    this.setHole();
+    for (let i = delta.start; i <= delta.end; i++) {
+      this.setP(f(i));
     }
 
     if (this.isSolved()) {

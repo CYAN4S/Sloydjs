@@ -24,11 +24,9 @@ main {
 }
 
 #stage div {
-    --size: 100px;
-
     position: relative;
-    width: var(--size);
-    height: var(--size);
+    width: 100px;
+    height: 100px;
     margin: 5px;
     box-sizing: content-box;
 }
