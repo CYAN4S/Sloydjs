@@ -4,6 +4,7 @@
     font-weight: 700;
     cursor: default  !important;
     user-select: none;
+    overflow-x: hidden;
 }
 
 header {
@@ -13,36 +14,37 @@ header {
     padding: 12px 0;
 }
 
-main {
+main, #sub {
     padding: 20px 0;
 }
 
 #stage {
     display: grid;
-    grid-template-columns: auto auto auto;
+    width: 100%;
+    margin: auto;
     justify-content: center;
 }
 
 #stage div {
-    position: relative;
-    width: 100px;
+    max-width: 100px;
     height: 100px;
-    margin: 5px;
-    box-sizing: content-box;
+    margin: 2px;
 }
 
+
 .piece {
+    position: relative;
     background-color: rgb(37, 189, 190);
     color: white;
     text-align: center;
 }
 
 .piece p {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     font-size: 40px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .piece:hover {
@@ -51,10 +53,6 @@ main {
 
 .hole p {
     display: none;
-}
-
-#sub {
-    padding: 20px 0;
 }
 
 #info, #con {
@@ -66,7 +64,7 @@ main {
 #info div {
     flex: 1 1;
     background-color: rgb(254, 230, 212);
-    margin: 0 4px;
+    margin: 0 2px;
     padding: 8px;
 }
 

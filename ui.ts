@@ -12,11 +12,7 @@ class BoardUI extends Board {
       stage.removeChild(stage.lastChild!);
     }
 
-    let gtc: string = "";
-    for (let i = 0; i < this.size[1]; i++) {
-      gtc += "auto "
-    }
-    stage.style.gridTemplateColumns = gtc;
+    stage.style.gridTemplateColumns = `repeat(${this.size[1]}, minmax(0, 100px))`;
 
     for (let i = 0; i < this.size[0]; i++) {
       this.elements.push([]);
@@ -37,47 +33,14 @@ class BoardUI extends Board {
     p.textContent = this.status[i][j].toString();
     div.appendChild(p);
 
-    // div.addEventListener("click", () => this.onPieceClick(i, j));
-    div.addEventListener("click", () => this.moveByClick([i, j]));
+    // div.addEventListener("mousedown", () => this.moveByClick([i, j]));
+    div.onmousedown = () => this.moveByClick([i, j]);
 
     return div;
   }
 
-  onPieceClick(row: number, col: number) {
-    if (this.hole[0] == row) {
-      if (this.hole[1] < col) {
-        for (let i = col - this.hole[1]; i > 0; i--) {
-          this.moveTile(Move.Left);
-        }
-      } else {
-        for (let i = this.hole[1] - col; i > 0; i--) {
-          this.moveTile(Move.Right);
-        }
-      }
-    } else if (this.hole[1] == col) {
-      if (this.hole[0] < row) {
-        for (let i = row - this.hole[0]; i > 0; i--) {
-          this.moveTile(Move.Up);
-        }
-      } else {
-        for (let i = this.hole[0] - row; i > 0; i--) {
-          this.moveTile(Move.Down);
-        }
-      }
-    }
-  }
-
-  private setToPiece(row: number, col: number) {
-    this.elements[row][col].className = "piece";
-    this.elements[row][col].getElementsByTagName("p")[0].textContent = this.status[row][col].toString();
-  }
-
   private setClassToPiece(pos: [number, number]) {
     this.elements[pos[0]][pos[1]].className = "piece";
-  }
-
-  private setToHole(row: number, col: number) {
-    this.elements[row][col].className = "hole";
   }
 
   private setP(pos: [number, number]) {
@@ -86,29 +49,6 @@ class BoardUI extends Board {
 
   private setHole() {
     this.elements[this.hole[0]][this.hole[1]].className = "hole";
-  }
-
-  protected moveTile(move: Move): void {
-    super.moveTile(move);
-    this.setToHole(this.hole[0], this.hole[1]);
-    switch (move) {
-      case Move.Up:
-        this.setToPiece(this.hole[0] - 1, this.hole[1]);
-        break;
-      case Move.Down:
-        this.setToPiece(this.hole[0] + 1, this.hole[1]);
-        break;
-      case Move.Left:
-        this.setToPiece(this.hole[0], this.hole[1] - 1);
-        break;
-      case Move.Right:
-        this.setToPiece(this.hole[0], this.hole[1] + 1);
-        break;
-    }
-
-    if (this.isSolved()) {
-      info.stop();
-    }
   }
 
   moveByClick(pos: [number, number]) {
@@ -127,8 +67,36 @@ class BoardUI extends Board {
       this.setP(f(i));
     }
 
+    if (info.isRunning) {
+      info.increase();
+    }
+
     if (this.isSolved()) {
       info.stop();
     }
   }
+
+  moveByArrow(move: Arrow): boolean {
+    switch (move) {
+      case Arrow.Up:
+        if (this.hole[0] == this.size[0] - 1) return false;
+        this.moveByClick([this.hole[0] + 1, this.hole[1]]);
+        break;
+      case Arrow.Down:
+        if (this.hole[0] == 0) return false;
+        this.moveByClick([this.hole[0] - 1, this.hole[1]]);
+        break;
+      case Arrow.Left:
+        if (this.hole[1] == this.size[1] - 1) return false;
+        this.moveByClick([this.hole[0], this.hole[1] + 1]);
+        break;
+      case Arrow.Right:
+        if (this.hole[1] == 0) return false;
+        this.moveByClick([this.hole[0], this.hole[1] - 1]);
+        break;
+    }
+    return true;
+  }
 }
+
+enum Arrow { Up = 38, Down = 40, Left = 37, Right = 39 }

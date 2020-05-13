@@ -1,10 +1,3 @@
-enum Move {
-  Up,
-  Down,
-  Left,
-  Right,
-}
-
 class Board {
   hole: [number, number];
   status: number[][] = [];
@@ -51,12 +44,8 @@ class Board {
     for (const i of this.status) {
       for (const j of i) {
         num++;
-        if (j == 0) {
-          continue;
-        }
-        if (j != num) {
-          return false;
-        }
+        if (j == 0) continue;
+        if (j != num) return false;
       }
     }
 
@@ -84,7 +73,7 @@ class Board {
   }
 
 
-  protected moveByPos(pos: [number, number]): boolean {
+  private moveByPos(pos: [number, number]): boolean {
     if (pos[0] == this.hole[0]) {
       if (pos[1] == this.hole[1]) {
         return false;
@@ -128,80 +117,9 @@ class Board {
     if (value == null) return null;
 
     this.moveByPos(pos);
-    
+
     return value;
   }
-
-  // LEGACY
-  isMovable(move: Move): boolean {
-    switch (move) {
-      case Move.Up:
-        if (this.hole[0] < this.size[0] - 1) {
-          return true;
-        }
-        break;
-      case Move.Down:
-        if (this.hole[0] > 0) {
-          return true;
-        }
-        break;
-      case Move.Left:
-        if (this.hole[1] < this.size[1] - 1) {
-          return true;
-        }
-        break;
-      case Move.Right:
-        if (this.hole[1] > 0) {
-          return true;
-        }
-        break;
-    }
-    return false;
-  }
-
-  protected moveTile(move: Move): void {
-    switch (move) {
-      case Move.Up:
-        this.status[this.hole[0]][this.hole[1]] = this.status[this.hole[0] + 1][
-          this.hole[1]
-        ];
-        this.status[this.hole[0] + 1][this.hole[1]] = 0;
-        this.hole[0]++;
-        break;
-      case Move.Down:
-        this.status[this.hole[0]][this.hole[1]] = this.status[this.hole[0] - 1][
-          this.hole[1]
-        ];
-        this.status[this.hole[0] - 1][this.hole[1]] = 0;
-        this.hole[0]--;
-        break;
-      case Move.Left:
-        this.status[this.hole[0]][this.hole[1]] = this.status[this.hole[0]][
-          this.hole[1] + 1
-        ];
-        this.status[this.hole[0]][this.hole[1] + 1] = 0;
-        this.hole[1]++;
-        break;
-      case Move.Right:
-        this.status[this.hole[0]][this.hole[1]] = this.status[this.hole[0]][
-          this.hole[1] - 1
-        ];
-        this.status[this.hole[0]][this.hole[1] - 1] = 0;
-        this.hole[1]--;
-        break;
-    }
-    return;
-  }
-
-  controlTile(move: Move): boolean {
-    if (this.isMovable(move)) {
-      this.moveTile(move);
-      return true;
-    } else {
-      return false;
-    }
-  }
-  // LEGACYEND
 
   log(): void {
     console.log(this.status.join(`\n`));

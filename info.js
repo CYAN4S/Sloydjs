@@ -1,5 +1,7 @@
 "use strict";
 class info {
+    static get isRunning() { return info.isRun; }
+    static get moveCount() { return info.movenum; }
     static getTime() {
         return info.currentTime;
     }
@@ -22,6 +24,11 @@ class info {
     static reset() {
         clearInterval(info.inter);
         info.currentTime = 0;
+        info.movenum = 0;
+    }
+    static increase() {
+        ++(info.movenum);
+        moveinfo.innerHTML = info.movenum.toString();
     }
 }
 info.startTime = 0;

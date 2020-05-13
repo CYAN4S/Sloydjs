@@ -5,6 +5,9 @@ abstract class info {
     private static isRun: boolean = false;
     private static inter: number;
 
+    public static get isRunning() { return info.isRun; }
+    public static get moveCount() { return info.movenum; }
+
     static getTime(): number {
         return info.currentTime;
     }
@@ -30,5 +33,11 @@ abstract class info {
     static reset(): void {
         clearInterval(info.inter);
         info.currentTime = 0;
+        info.movenum = 0;
+    }
+
+    static increase(): void { 
+        ++(info.movenum);
+        moveinfo.innerHTML = info.movenum.toString();
     }
 }
