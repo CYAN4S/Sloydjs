@@ -2,9 +2,9 @@
 class Board {
     constructor(row, col) {
         this.status = [];
-        if (row < 2 || col < 2) {
-            // throw error
-        }
+        // if (row < 2 || col < 2) {
+        //   // throw error
+        // }
         this.hole = [row - 1, col - 1];
         this.size = [row, col];
         let num = 1;
@@ -106,5 +106,9 @@ class Board {
     }
     log() {
         console.log(this.status.join(`\n`));
+    }
+    copy() {
+        let clone = this;
+        return clone;
     }
 }

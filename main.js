@@ -1,14 +1,6 @@
 "use strict";
-const stage = document.getElementById("stage");
-const modal = document.getElementById("modal");
-const [resize, shuffle, solve] = document.getElementById("con").getElementsByTagName("a");
-const adjs = document.getElementsByClassName("adj");
-const nums = document.getElementsByClassName("num");
-const apply = document.getElementById("apply");
-const timeinfo = document.getElementById("timeinfo");
-const moveinfo = document.getElementById("moveinfo");
-let mainBoard = new BoardUI(3, 3, stage);
 let row = 3, col = 3;
+let mainBoard = new BoardUI(row, col, stage);
 resize.onclick = () => { modal.style.display = "block"; };
 window.onclick = (event) => {
     if (event.target == modal) {
@@ -16,7 +8,6 @@ window.onclick = (event) => {
     }
 };
 window.onkeydown = (event) => {
-    console.log(event.keyCode);
     mainBoard.moveByArrow(event.keyCode);
 };
 apply.onclick = () => {
@@ -33,9 +24,6 @@ shuffle.onclick = () => {
         timeinfo.textContent = `${Math.floor(t / 1000)}`;
     });
 };
-function minmax(n) {
-    return (n < 2) ? 2 : (n > 9) ? 9 : n;
-}
 const adjfuncs = [
     () => { nums[0].textContent = (row = (++row > 9) ? 9 : row).toString(); },
     () => { nums[1].textContent = (col = (++col > 9) ? 9 : col).toString(); },

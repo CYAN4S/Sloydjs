@@ -64,6 +64,7 @@
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
   },
   "files": [
+    "init.ts",
     "main.ts",
     "ui.ts",
     "pq.ts",

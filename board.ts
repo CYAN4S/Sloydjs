@@ -5,14 +5,13 @@ class Board {
   readonly size: [number, number];
 
   constructor(row: number, col: number) {
-    if (row < 2 || col < 2) {
-      // throw error
-    }
+    // if (row < 2 || col < 2) {
+    //   // throw error
+    // }
     this.hole = [row - 1, col - 1];
     this.size = [row, col];
 
     let num = 1;
-
     for (let i = 0; i < row; i++) {
       let arr: number[] = [];
 
@@ -123,6 +122,11 @@ class Board {
 
   log(): void {
     console.log(this.status.join(`\n`));
+  }
+
+  copy(): Board {
+    let clone: Board = this;
+    return clone;
   }
 }
 
