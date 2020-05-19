@@ -108,7 +108,11 @@ class Board {
         console.log(this.status.join(`\n`));
     }
     copy() {
-        let clone = this;
+        let tmp = {};
+        Object.assign(tmp, this);
+        let clone = tmp;
+        clone.hole = [this.hole[0], this.hole[1]];
+        clone.status = this.status.map(arr => arr.slice());
         return clone;
     }
 }

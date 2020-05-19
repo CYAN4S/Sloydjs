@@ -125,7 +125,13 @@ class Board {
   }
 
   copy(): Board {
-    let clone: Board = this;
+    let tmp = {};
+    Object.assign(tmp, this);
+    let clone: Board = <Board>tmp;
+
+    clone.hole = [this.hole[0], this.hole[1]];
+    clone.status = this.status.map(arr => arr.slice());
+
     return clone;
   }
 }

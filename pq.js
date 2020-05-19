@@ -3,19 +3,11 @@ class BinaryHeap {
     constructor(comparator) {
         this.comparator = (parent, child) => parent >= child;
         this.meta = [];
-        if (comparator) {
-            this.comparator = comparator;
-        }
+        comparator ? (this.comparator = comparator) : {};
     }
-    length() {
-        return this.meta.length;
-    }
-    isEmpty() {
-        return this.meta.length == 0;
-    }
-    log() {
-        console.log(this.meta.join());
-    }
+    length() { return this.meta.length; }
+    isEmpty() { return this.meta.length == 0; }
+    log() { console.log(this.meta.join()); }
     insert(data) {
         this.meta.push(data);
         let i = this.length() - 1, p;
@@ -62,18 +54,15 @@ class BinaryHeap {
         return result;
     }
 }
-// ordering of elements with the same priority is undefined.
-// class PriorityQueue<T> {
-//   heap: BinaryHeap<[T, number]>;
-//   constructor(comparator?: (parent: T, child: T) => boolean) {
-//     this.heap = new BinaryHeap()
-//   }
-//   isEmpty(): boolean {
-//     return false;
-//   }
-//   insert(element: T, priority: number): void {
-//     return;
-//   }
-//   pull(): T {
-//   }
-// }
+class PriorityQueue extends BinaryHeap {
+    constructor(prioritizeMax) {
+        let comp;
+        if (prioritizeMax == undefined || prioritizeMax) {
+            comp = (a, b) => a[0] >= b[0];
+        }
+        else {
+            comp = (a, b) => a[0] <= b[0];
+        }
+        super(comp);
+    }
+}
