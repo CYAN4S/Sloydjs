@@ -19,6 +19,11 @@ footer {
     color: lightgray;
 }
 
+footer a {
+    cursor: pointer !important;
+    color: rgb(32, 150, 150);
+}
+
 main, #sub {
     padding: 20px 0;
 }
