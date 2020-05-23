@@ -26,8 +26,8 @@ class info {
         info.currentTime = 0;
         info.movenum = 0;
     }
-    static increase() {
-        ++(info.movenum);
+    static increase(count) {
+        info.movenum += count;
         moveinfo.innerHTML = info.movenum.toString();
     }
 }

@@ -36,8 +36,8 @@ abstract class info {
         info.movenum = 0;
     }
 
-    static increase(): void { 
-        ++(info.movenum);
+    static increase(count: number): void { 
+        info.movenum += count;
         moveinfo.innerHTML = info.movenum.toString();
     }
 }

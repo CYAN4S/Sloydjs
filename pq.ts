@@ -1,6 +1,16 @@
-class BinaryHeap<T> {
-  private readonly comparator = (parent: T, child: T): boolean =>
-    parent >= child;
+interface PriorityQueue<T> {
+  insert(data: T): void;
+  peek(): T;
+  extract(): T;
+
+  isEmpty(): boolean;
+  length(): number;
+
+  comparator(arg0: T, arg1: T): boolean;
+}
+
+class BinaryHeap<T> implements PriorityQueue<T>{
+  readonly comparator = (parent: T, child: T): boolean => parent >= child;
   private meta: T[] = [];
 
   constructor(comparator?: (parent: T, child: T) => boolean) {
@@ -66,17 +76,5 @@ class BinaryHeap<T> {
       i = index;
     }
     return result;
-  }
-}
-
-class PriorityQueue<T> extends BinaryHeap<[number, T]> {
-  constructor(prioritizeMax?: boolean) {
-    let comp: (obj0: [number, T], obj1: [number, T]) => boolean;
-    if (prioritizeMax == undefined || prioritizeMax) {
-      comp = (a, b) => a[0] >= b[0];
-    } else {
-      comp = (a, b) => a[0] <= b[0];
-    }
-    super(comp);
   }
 }

@@ -54,15 +54,3 @@ class BinaryHeap {
         return result;
     }
 }
-class PriorityQueue extends BinaryHeap {
-    constructor(prioritizeMax) {
-        let comp;
-        if (prioritizeMax == undefined || prioritizeMax) {
-            comp = (a, b) => a[0] >= b[0];
-        }
-        else {
-            comp = (a, b) => a[0] <= b[0];
-        }
-        super(comp);
-    }
-}

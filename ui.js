@@ -26,7 +26,6 @@ class BoardUI extends Board {
         let p = document.createElement("p");
         p.textContent = this.status[i][j].toString();
         div.appendChild(p);
-        // div.addEventListener("mousedown", () => this.moveByClick([i, j]));
         div.onmousedown = () => this.moveByClick([i, j]);
         return div;
     }
@@ -52,7 +51,7 @@ class BoardUI extends Board {
             this.setP(f(i));
         }
         if (info.isRunning) {
-            info.increase();
+            info.increase(delta.end - delta.start);
         }
         if (this.isSolved()) {
             info.stop();
@@ -83,11 +82,16 @@ class BoardUI extends Board {
         }
         return true;
     }
+    moveAuto(moves) {
+        let self = this;
+        let i = 0;
+        let id = setTimeout(function tick() {
+            if (i == moves.length) {
+                clearInterval(id);
+                return;
+            }
+            self.moveByArrow(moves[i++]);
+            id = setTimeout(tick, 200);
+        }, 200);
+    }
 }
-var Arrow;
-(function (Arrow) {
-    Arrow[Arrow["Up"] = 38] = "Up";
-    Arrow[Arrow["Down"] = 40] = "Down";
-    Arrow[Arrow["Left"] = 37] = "Left";
-    Arrow[Arrow["Right"] = 39] = "Right";
-})(Arrow || (Arrow = {}));

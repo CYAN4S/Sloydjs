@@ -32,8 +32,6 @@ class BoardUI extends Board {
     let p = document.createElement("p");
     p.textContent = this.status[i][j].toString();
     div.appendChild(p);
-
-    // div.addEventListener("mousedown", () => this.moveByClick([i, j]));
     div.onmousedown = () => this.moveByClick([i, j]);
 
     return div;
@@ -68,7 +66,7 @@ class BoardUI extends Board {
     }
 
     if (info.isRunning) {
-      info.increase();
+      info.increase(delta.end - delta.start);
     }
 
     if (this.isSolved()) {
@@ -97,6 +95,18 @@ class BoardUI extends Board {
     }
     return true;
   }
+
+  moveAuto(moves: Arrow[]) {
+    let self = this;
+    let i = 0;
+    let id = setTimeout(function tick() {
+      if (i == moves.length) {
+        clearInterval(id);
+        return;
+      }
+      self.moveByArrow(moves[i++]);
+      id = setTimeout(tick, 200);
+    }, 200);
+  }
 }
 
-enum Arrow { Up = 38, Down = 40, Left = 37, Right = 39 }

@@ -2,9 +2,9 @@
 class Board {
     constructor(row, col) {
         this.status = [];
-        // if (row < 2 || col < 2) {
-        //   // throw error
-        // }
+        if (row < 2 || col < 2) {
+            throw new Error("Invalid Board Size: Too Small.");
+        }
         this.hole = [row - 1, col - 1];
         this.size = [row, col];
         let num = 1;
@@ -104,13 +104,31 @@ class Board {
         this.moveByPos(pos);
         return value;
     }
+    getPosByArrow(arrow) {
+        switch (arrow) {
+            case Arrow.Up:
+                if (this.hole[0] == this.size[0] - 1)
+                    return null;
+                return [this.hole[0] + 1, this.hole[1]];
+            case Arrow.Down:
+                if (this.hole[0] == 0)
+                    return null;
+                return [this.hole[0] - 1, this.hole[1]];
+            case Arrow.Left:
+                if (this.hole[1] == this.size[1] - 1)
+                    return null;
+                return [this.hole[0], this.hole[1] + 1];
+            case Arrow.Right:
+                if (this.hole[1] == 0)
+                    return null;
+                return [this.hole[0], this.hole[1] - 1];
+        }
+    }
     log() {
         console.log(this.status.join(`\n`));
     }
     copy() {
-        let tmp = {};
-        Object.assign(tmp, this);
-        let clone = tmp;
+        let clone = new Board(this.size[0], this.size[1]);
         clone.hole = [this.hole[0], this.hole[1]];
         clone.status = this.status.map(arr => arr.slice());
         return clone;

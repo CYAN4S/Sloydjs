@@ -5,9 +5,10 @@ class Board {
   readonly size: [number, number];
 
   constructor(row: number, col: number) {
-    // if (row < 2 || col < 2) {
-    //   // throw error
-    // }
+    if (row < 2 || col < 2) {
+      throw new Error("Invalid Board Size: Too Small.");
+    }
+
     this.hole = [row - 1, col - 1];
     this.size = [row, col];
 
@@ -51,7 +52,7 @@ class Board {
     return true;
   }
 
-  private getDelta(pos: [number, number]) {
+  getDelta(pos: [number, number]) {
     let isRowSame: boolean, std: number, start: number, end: number;
 
     if (pos[0] == this.hole[0]) {
@@ -72,7 +73,7 @@ class Board {
   }
 
 
-  private moveByPos(pos: [number, number]): boolean {
+  moveByPos(pos: [number, number]): boolean {
     if (pos[0] == this.hole[0]) {
       if (pos[1] == this.hole[1]) {
         return false;
@@ -120,14 +121,29 @@ class Board {
     return value;
   }
 
+  getPosByArrow(arrow: Arrow): [number, number] | null {
+    switch (arrow) {
+      case Arrow.Up:
+        if (this.hole[0] == this.size[0] - 1) return null;
+        return [this.hole[0] + 1, this.hole[1]];
+      case Arrow.Down:
+        if (this.hole[0] == 0) return null;
+        return [this.hole[0] - 1, this.hole[1]];
+      case Arrow.Left:
+        if (this.hole[1] == this.size[1] - 1) return null;
+        return [this.hole[0], this.hole[1] + 1];
+      case Arrow.Right:
+        if (this.hole[1] == 0) return null;
+        return [this.hole[0], this.hole[1] - 1];
+    }
+  }
+
   log(): void {
     console.log(this.status.join(`\n`));
   }
 
   copy(): Board {
-    let tmp = {};
-    Object.assign(tmp, this);
-    let clone: Board = <Board>tmp;
+    let clone: Board = new Board(this.size[0], this.size[1]);
 
     clone.hole = [this.hole[0], this.hole[1]];
     clone.status = this.status.map(arr => arr.slice());
