@@ -14,7 +14,7 @@ apply.onclick = () => {
     info.stop();
     mainBoard = new BoardUI(row, col, stage);
     modal.style.display = "none";
-    solve.style.display = (row > 3 || col > 3) ? "none" : "block"; // Until solve system is stable.
+    // solve.style.display = (row > 3 || col > 3) ? "none" : "block"; // Until solve system is stable.
 }
 
 shuffle.onclick = () => {
@@ -29,7 +29,7 @@ shuffle.onclick = () => {
 
 solve.onclick = () => {
     let solver = new Solver(mainBoard);
-    mainBoard.moveAuto(solver.solve());
+    setTimeout(() => {mainBoard.moveAuto(solver.solve())});
 }
 
 const adjfuncs = [

@@ -21,7 +21,7 @@ footer {
 
 footer a {
     cursor: pointer !important;
-    color: rgb(32, 150, 150);
+    color: #26BFB3;
 }
 
 main, #sub {
@@ -44,7 +44,7 @@ main, #sub {
 
 .piece {
     position: relative;
-    background-color: rgb(37, 189, 190);
+    background-color: #26BFB3;
     color: white;
     text-align: center;
 }
@@ -58,7 +58,7 @@ main, #sub {
 }
 
 .piece:hover {
-    background-color: rgb(32, 150, 150);
+    background-color: #1a968b;
 }
 
 .hole p {
@@ -96,6 +96,21 @@ main, #sub {
     color: gray;
     flex-grow: 1;
     text-align: center;
+}
+
+#wait {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 48px;
 }
 
 #modal {

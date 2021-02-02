@@ -2,6 +2,8 @@
 
 const stage = document.getElementById("stage")!;
 const modal = document.getElementById("modal")!;
+const wait = document.getElementById("wait")!;
+wait.style.display = "none";
 
 const [resize, shuffle, solve] = document.getElementById("con")!.getElementsByTagName("a");
 

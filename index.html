@@ -1,65 +1,68 @@
 <html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sloyd</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-</head>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
+  <body>
     <header>
-        <h1>Sloyd</h1>
+      <h1>Sloyd</h1>
     </header>
 
     <main>
-        <div id="stage">
+      <div id="stage"></div>
+      <div id="sub">
+        <div id="info">
+          <div>
+            <h2>TIME</h2>
+            <p id="timeinfo">0</p>
+          </div>
+          <div>
+            <h2>MOVE</h2>
+            <p id="moveinfo">0</p>
+          </div>
         </div>
-        <div id="sub">
-            <div id="info">
-                <div>
-                    <h2>TIME</h2>
-                    <p id="timeinfo">0</p>
-                </div>
-                <div>
-                    <h2>MOVE</h2>
-                    <p id="moveinfo">0</p>
-                </div>
-            </div>
-            <div id="con">
-                <a>RESIZE / RESET</a>
-                <a>SHUFFLE</a>
-                <a>SOLVE</a>
-            </div>
+        <div id="con">
+          <a>RESIZE / RESET</a>
+          <a>SHUFFLE</a>
+          <a>SOLVE</a>
         </div>
+      </div>
 
-        <div id="modal">
-            <div id="modal-con">
-                <h1>Select size.</h1>
-                <div id="size-table">
-                    <h2>ROW</h2>
-                    <h2>COLUMN</h2>
-                    <div class="adj">+</div>
-                    <div class="adj">+</div>
-                    <div class="num">3</div>
-                    <div class="num">3</div>
-                    <div class="adj">-</div>
-                    <div class="adj">-</div>
-                </div>
-                <div id="apply">APPLY</div>
-            </div>
+      <div id="modal">
+        <div id="modal-con">
+          <h1>Select size.</h1>
+          <div id="size-table">
+            <h2>ROW</h2>
+            <h2>COLUMN</h2>
+            <div class="adj">+</div>
+            <div class="adj">+</div>
+            <div class="num">3</div>
+            <div class="num">3</div>
+            <div class="adj">-</div>
+            <div class="adj">-</div>
+          </div>
+          <div id="apply">APPLY</div>
         </div>
+      </div>
+
+      <div id="wait">Please wait...</div>
     </main>
 
     <footer>
-        <p style="color: red">
-            SOLVE System is still in alpha and is not stable. <br>
-            SOLVE System doesn't work if the size of the board exceeds 3 X 3.
-        </p>
-        <br>
-        <p>Copyright 2020 CYAN4S</p>
-        <a href="https://github.com/CYAN4S/sloydjs">Browse code in GitHub. ></a>
+      <p style="color: red">
+        SOLVE System is still in alpha and is not stable. <br />
+        SOLVE System works really slowly if the size of the board exceeds 3 X 3.
+      </p>
+      <br />
+      <p>Copyright 2021 CYAN4S</p>
+      <a href="https://github.com/CYAN4S/sloydjs">Browse code in GitHub. ></a>
     </footer>
 
     <script src="init.js"></script>
@@ -69,6 +72,5 @@
     <script src="info.js"></script>
     <script src="main.js"></script>
     <script src="ai.js"></script>
-</body>
-
+  </body>
 </html>
